@@ -54,10 +54,13 @@ fun Canvas.drawLineArrowArc(i : Int, w : Float, size : Float, sc1 : Float, sc2 :
     save()
     translate(-w, -r)
     drawLine(0f, 0f, x, 0f, paint)
+    save()
+    translate(x, 0f)
     drawArc(RectF(-r, 0f, r, 2 * r), -90f, 180f * sc2i, false, paint)
     restore()
+    restore()
     save()
-    rotate(180f * sc2)
+    rotate(180f * sc2i)
     translate(-w + x, -r)
     drawArrow(size, paint)
     restore()
@@ -74,6 +77,7 @@ fun Canvas.drawOLANode(i : Int, scale : Float, paint : Paint) {
     paint.color = foreColor
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
+    paint.style = Paint.Style.STROKE
     save()
     translate(w / 2, gap * (i + 1))
     for (j in 0..(lines - 1)) {
