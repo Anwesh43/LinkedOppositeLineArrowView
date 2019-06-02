@@ -237,4 +237,13 @@ class OppositeLineArrowView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity: Activity) : OppositeLineArrowView {
+            val view : OppositeLineArrowView = OppositeLineArrowView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
