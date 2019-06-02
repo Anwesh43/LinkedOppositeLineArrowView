@@ -98,4 +98,24 @@ class OppositeLineArrowView(ctx : Context) : View(ctx) {
         }
         return true
     }
+
+    data class State(var scale : Float = 0f, var dir : Float = 0f, var prevScale : Float = 0f) {
+
+        fun update(cb : (Float) -> Unit) {
+            scale += scale.updateValue(dir, lines, lines)
+            if (Math.abs(this.scale - this.prevScale) > 1) {
+                this.scale = this.prevScale + this.dir
+                this.dir = 0f
+                this.prevScale = this.scale
+                cb(prevScale)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            if (dir == 0f) {
+                dir = 1f - 2 * prevScale
+                cb()
+            }
+        }
+    }
 }
