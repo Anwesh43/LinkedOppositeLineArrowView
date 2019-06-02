@@ -214,4 +214,26 @@ class OppositeLineArrowView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : OppositeLineArrowView) {
+
+        private val ola : OppositeLineArrow = OppositeLineArrow(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            ola.draw(canvas, paint)
+            animator.animate {
+                ola.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ola.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
